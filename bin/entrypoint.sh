@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Start glusterd
+service glusterfs-server start
+
 # Connect to the other servers
 for peer in $GLUSTER_PEERS ; do
   echo "Attempting peer probe $peer"
