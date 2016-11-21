@@ -7,6 +7,6 @@ RUN apt-get install -y \
   attr
 
 # Install entrypoint
-ADD bin/entrypoint.sh /user/bin
+ADD bin/entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
