@@ -17,7 +17,9 @@ done
 
 echo "Attempting shared-volume creation"
 peers_arr=($GLUSTER_PEERS)
-gluster volume create shared-volume replica 3 \
+replicas=${VOLUME_REPLICAS:3}
+gluster volume create shared-volume \
+    replica $replicas \
     ${peers_arr[@]/%/:/data/brick1/vol} \
     force \
     && gluster volume start shared-volume \
