@@ -8,7 +8,9 @@ RUN apt-get install -y \
   daemon
 
 # Create data directory
-RUN mkdir -p /data/brick/volume
+RUN mkdir -p /data/shared-volume/brick1
+RUN mkdir -p /data/shared-volume/brick2
+RUN mkdir -p /data/shared-volume/brick3
 
 # Install entrypoint
 ADD bin/entrypoint.sh /entrypoint.sh

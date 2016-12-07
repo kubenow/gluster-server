@@ -17,10 +17,11 @@ done
 
 echo "Attempting shared-volume creation"
 peers_arr=($GLUSTER_PEERS)
-replicas=${VOLUME_REPLICAS:3}
 gluster volume create shared-volume \
-    replica $replicas \
-    ${peers_arr[@]/%/:/data/brick1/vol} \
+    replica 3 \
+    ${peers_arr[@]/%/:/data/shared-volume/brick1} \
+    ${peers_arr[@]/%/:/data/shared-volume/brick2} \
+    ${peers_arr[@]/%/:/data/shared-volume/brick3} \
     force \
     && gluster volume start shared-volume \
     || true # ignore error, this was likely done by anoter peer
