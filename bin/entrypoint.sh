@@ -15,4 +15,12 @@ for peer in $GLUSTER_PEERS ; do
   done
 done
 
+echo "Attempting shared-volume creation"
+peers_arr=($GLUSTER_PEERS)
+gluster volume create shared-volume replica 3 \
+    ${peers_arr[@]/%/:/data/brick1/vol} \
+    force \
+    && gluster volume start shared-volume \
+    || true # ignore error, this was likely done by anoter peer
+
 tail -f /dev/null # Hang on :-)
