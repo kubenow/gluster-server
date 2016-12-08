@@ -3,8 +3,12 @@
 # Start glusterd
 service glusterfs-server start
 
+# Get peers
+peers_domain=${PEERS_DOMAIN:-gluster-server.default}
+gluster_peers=$(getent hosts gluster-server.default | awk '{ print $1 }')
+
 # Connect to the other servers
-for peer in $GLUSTER_PEERS ; do
+for peer in $gluster_peers ; do
   echo "Attempting peer probe $peer"
   wait_time=0
   retrials=${PROBE_RETRIALS:-35} # Try for 10 minutes by default
@@ -16,7 +20,7 @@ for peer in $GLUSTER_PEERS ; do
 done
 
 echo "Attempting shared-volume creation"
-peers_arr=($GLUSTER_PEERS)
+peers_arr=($gluster_peers)
 gluster volume create shared-volume \
     replica 3 \
     ${peers_arr[@]/%/:/data/shared-volume/brick1} \
