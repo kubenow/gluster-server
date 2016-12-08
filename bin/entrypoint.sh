@@ -5,7 +5,7 @@ service glusterfs-server start
 
 # Get peers
 peers_domain=${PEERS_DOMAIN:-gluster-server.default}
-gluster_peers=$(getent hosts gluster-server.default | awk '{ print $1 }')
+gluster_peers=$(getent hosts $peers_domain | awk '{ print $1 }')
 
 # Connect to the other servers
 for peer in $gluster_peers ; do
