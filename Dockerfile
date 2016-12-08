@@ -4,8 +4,7 @@ FROM ubuntu:xenial
 RUN apt-get update -y
 RUN apt-get install -y \
   glusterfs-server \
-  attr \
-  daemon
+  attr
 
 # Create data directory
 RUN mkdir -p /data/shared-volume/brick1
