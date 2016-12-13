@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Start glusterd
-service glusterfs-server start
-
 # Get peers
 peers_domain=${PEERS_DOMAIN:-gluster-server.default}
 gluster_peers=$(getent hosts $peers_domain | awk '{ print $1 }')
