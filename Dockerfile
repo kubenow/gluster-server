@@ -11,9 +11,11 @@ RUN apt-get install -y \
   glusterfs-server \
   attr
 
-# Make bricks directory
-RUN mkdir -p /var/bricks
+# Backup initial configuration
+RUN mkdir /etc/glusterfs_bkp /var/lib/glusterd_bkp
+RUN cp -r /etc/glusterfs/* /etc/glusterfs_bkp
+RUN cp -r /var/lib/glusterd/* /var/lib/glusterd_bkp
 
 # Set entrypoint
-ENTRYPOINT service glusterfs-server start && \
-  tail -c +1 -F /var/log/glusterfs/glusterd.log
+ADD bin/entrypoint.sh /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
